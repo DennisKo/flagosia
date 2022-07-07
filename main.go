@@ -2,23 +2,26 @@ package main
 
 import (
 	"ecosia/flagosia/controllers"
-	"ecosia/flagosia/models"
-	"net/http"
+	"ecosia/flagosia/data"
 
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func setupRouter() *gin.Engine {
 	r := gin.Default()
-
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "Yoi world"})
-	})
-
-	models.ConnectDatabase()
 
 	r.GET("/flags", controllers.FindFlags)
 	r.POST("/flags", controllers.CreateFlag)
+	r.DELETE("/flags", controllers.DeleteFlag)
+	r.PUT("/flags", controllers.UpdateFlag)
 
-	r.Run()
+	return r
+}
+
+func main() {
+	r := setupRouter()
+
+	data.ConnectDatabase()
+
+	r.Run(":8080")
 }

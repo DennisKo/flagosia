@@ -5,6 +5,9 @@ import (
 )
 
 type Flag struct {
-  gorm.Model
-  Name  string
+	gorm.Model
+	ID      uint
+	Name    string `gorm:"unique"`
+	Enabled bool   `gorm:"default: false"`
+	Value   string
 }
