@@ -1,6 +1,7 @@
 import { getFlags, isFlagEnabled } from '../lib/flagosia';
 
-export default function Home({ flags }) {
+export default function Home({ flags, query }) {
+  console.log(query);
   const someButton = isFlagEnabled('Some Button', flags);
   const colorButton = isFlagEnabled('Color Button', flags);
   return (
@@ -23,5 +24,5 @@ export default function Home({ flags }) {
 export async function getServerSideProps({ req, query }) {
   console.log(query);
   const flags = await getFlags();
-  return { props: { flags: flags.data } };
+  return { props: { flags: flags.data, query } };
 }
