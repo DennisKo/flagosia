@@ -20,7 +20,8 @@ export default function Home({ flags }) {
   );
 }
 
-Home.getInitialProps = async () => {
+export async function getServerSideProps({ req, query }) {
+  console.log(query);
   const flags = await getFlags();
-  return { flags: flags.data };
-};
+  return { props: { flags: flags.data } };
+}

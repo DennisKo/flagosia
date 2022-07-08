@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/examples-ui": "^0.3.6",
+    "ipaddr.js": "^2.0.1",
     "next": "12.2.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "request-ip": "^3.3.0"
   },
   "devDependencies": {
     "eslint": "8.19.0",

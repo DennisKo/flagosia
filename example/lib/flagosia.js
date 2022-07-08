@@ -1,5 +1,5 @@
 export async function getFlags() {
-  const res = await fetch('http://localhost:8080/flags');
+  const res = await fetch(process.env.FLAGS_API);
   const json = await res.json();
   return json;
 }
