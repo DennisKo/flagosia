@@ -17,7 +17,9 @@ func ConnectDatabase() {
 	}
 
 	database.Migrator().DropTable(&models.Flag{})
+	database.Migrator().DropTable(&models.Segment{})
 	database.AutoMigrate(&models.Flag{})
+	database.AutoMigrate(&models.Segment{})
 
 	DB = database
 }

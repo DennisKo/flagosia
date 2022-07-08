@@ -1,4 +1,6 @@
-export function TextInput({ value, label, onChange, disabled }) {
+import { forwardRef } from 'react';
+
+export function TextInput({ value, label, onChange, disabled, refs, ...rest }) {
   return (
     <div className="mb-3 xl:w-96">
       <label
@@ -30,6 +32,8 @@ export function TextInput({ value, label, onChange, disabled }) {
         id="exampleFormControlInput1"
         placeholder={label}
         onChange={onChange}
+        ref={refs}
+        {...rest}
       />
     </div>
   );

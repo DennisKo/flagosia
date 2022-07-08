@@ -17,6 +17,7 @@ func setupRouter() *gin.Engine {
 	r.DELETE("/flags", controllers.DeleteFlag)
 	r.PUT("/flags", controllers.UpdateFlag)
 
+	r.GET("/check-flags", controllers.CheckFlags)
 	return r
 }
 

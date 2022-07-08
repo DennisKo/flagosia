@@ -1,5 +1,6 @@
-export async function getFlags() {
-  const res = await fetch(process.env.FLAGS_API);
+export async function getFlags(query) {
+  console.log('query', query);
+  const res = await fetch(`${process.env.FLAGS_API}?country=${query.country}`);
   const json = await res.json();
   return json;
 }

@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { Button } from './Button';
 import { Checkbox } from './Checkbox';
 import { TextInput } from './TextInput';
+import { Segments } from './Segments';
 import { updateFlag, deleteFlag } from '../api';
 import { useEffect } from 'react';
 
@@ -10,13 +11,15 @@ export function Flag({ flag }) {
   const [isEditing, setIsEditing] = useState(false);
   const [flagName, setFlagName] = useState(flag.Name);
   const [enabled, setEnabled] = useState(flag.Enabled);
+  const [segments, setSegments] = useState(flag.Segments);
   const [value, setValue] = useState(flag.Value);
-
   useEffect(() => {
     setFlagName(flag.Name);
     setValue(flag.Value);
     setEnabled(flag.Enabled);
+    setSegments(flag.Segments);
   }, [flag]);
+
   const queryClient = useQueryClient();
   const updateMutation = useMutation(updateFlag, {
     onSuccess: () => {
@@ -44,11 +47,13 @@ export function Flag({ flag }) {
   };
 
   const handleSave = () => {
+    console.log(segments);
     updateMutation.mutate({
       ID: flag.ID,
       name: flagName,
       value,
       enabled,
+      segments,
     });
   };
 
@@ -69,6 +74,8 @@ export function Flag({ flag }) {
   const handleEnabledChange = (e) => {
     setEnabled(e.target.checked);
   };
+
+  const handleSaveSegment = () => {};
   return (
     <li>
       <TextInput
@@ -90,6 +97,13 @@ export function Flag({ flag }) {
         label="Value"
         disabled={!isEditing}
       />
+      {segments && (
+        <Segments
+          segments={flag.Segments}
+          isEditing={isEditing}
+          setSegments={setSegments}
+        />
+      )}
       <div className="flex">
         <Button csx="mr-4" onClick={isEditing ? handleCancel : handleEdit}>
           {isEditing ? 'Cancel' : 'Edit'}

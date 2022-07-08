@@ -4,6 +4,7 @@ export default function Home({ flags, query }) {
   console.log(query);
   const someButton = isFlagEnabled('Some Button', flags);
   const colorButton = isFlagEnabled('Color Button', flags);
+  const localFeature = isFlagEnabled('Local feature', flags);
   return (
     <div style={{ padding: '20px' }}>
       <h1>My test page</h1>
@@ -12,17 +13,23 @@ export default function Home({ flags, query }) {
       )}
       {colorButton.isEnabled && (
         <button
-          style={{ backgroundColor: colorButton.value, color: 'white', padding: '8px' }}
+          style={{
+            backgroundColor: colorButton.value ? colorButton.value : 'gray',
+            color: 'white',
+            padding: '8px',
+          }}
         >
           Color Button
         </button>
+      )}
+      {localFeature.isEnabled && (
+        <p>I am only visible for users visiting from Germany.</p>
       )}
     </div>
   );
 }
 
 export async function getServerSideProps({ req, query }) {
-  console.log(query);
-  const flags = await getFlags();
+  const flags = await getFlags(query);
   return { props: { flags: flags.data, query } };
 }
